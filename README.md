@@ -8,3 +8,7 @@ Originally written by Barry Rowlingson (barry.rowlingson@gmail.com), ported to Q
 Report issues at Github: https://github.com/nextgis/clickfu/issues
 
 Official QGIS plugins repo link: http://plugins.qgis.org/plugins/clickfu/
+
+License
+-------------
+This program is licensed under GNU GPL v2 or any later version
