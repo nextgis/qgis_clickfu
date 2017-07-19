@@ -32,67 +32,70 @@ from PyQt4.QtGui import *
 from qgis.core import *
 from qgis.gui import *
 
+
 class cfAction(QAction):
-    def __init__(self,name,iface):
-        QAction.__init__(self,self.name(),iface.mainWindow())
-        self.iface=iface
-        self.canvas=iface.mapCanvas()
+    def __init__(self, name, iface):
+        QAction.__init__(self, self.name(), iface.mainWindow())
+        self.iface = iface
+        self.canvas = iface.mapCanvas()
         self.setWhatsThis(self.desc())
         self.setToolTip(self.desc())
-        QObject.connect(self,SIGNAL("triggered()"),self.doit)
-        return None
+        QObject.connect(self, SIGNAL("triggered()"), self.doit)
 
     def doit(self):
-        self.tool=cfTool(self.iface,self.createURL)
+        self.tool = cfTool(self.iface, self.createURL)
         self.canvas.setMapTool(self.tool)
         return None
 
+
 class cfTool(QgsMapTool):
-    def __init__(self,iface,urlCreator):
-        QgsMapTool.__init__(self,iface.mapCanvas())
-        self.iface=iface
-        self.canvas=iface.mapCanvas()
-        self.urlCreator=urlCreator
-        return None
-    def canvasReleaseEvent(self,e):
-        point = self.canvas.getCoordinateTransform().toMapPoint(e.pos().x(),e.pos().y())
+    def __init__(self, iface, urlCreator):
+        QgsMapTool.__init__(self, iface.mapCanvas())
+        self.iface = iface
+        self.canvas = iface.mapCanvas()
+        self.urlCreator = urlCreator
+
+    def canvasReleaseEvent(self, e):
+        point = self.canvas.getCoordinateTransform().toMapPoint(e.pos().x(), e.pos().y())
         pt85 = pointToWGS84(point)
-        url = self.urlCreator(pt85.y(),pt85.x())
+        url = self.urlCreator(pt85.y(), pt85.x())
         #print "event pos: ",e.pos().x(),",",e.pos().y()
         #print "point pos: ",point.x(),point.y()
         #print "point w84: ",pt85.x(),pt85.y()
-
         QDesktopServices.openUrl(QUrl(url))
         return None
-    
+
+
 def convertLat(lat):
     """ convert latitude in signed decimal degrees to (degrees, minutes, seconds, hemisphere) """
-    return convertDMS(lat,"NS")
+    return convertDMS(lat, "NS")
+
 
 def convertLon(lon):
-    return convertDMS(lon,"EW")
+    return convertDMS(lon, "EW")
 
-def convertDMS(dms,hemis):
+
+def convertDMS(dms, hemis):
     if dms > 0:
-        hemi=hemis[0]
+        hemi = hemis[0]
     else:
-        hemi=hemis[1]
-        dms=-dms
+        hemi = hemis[1]
+        dms = -dms
     d = int(dms)
-    ms = (dms-d) * 60.0
+    ms = (dms - d) * 60.0
     m = int(ms)
     s = (ms - m) * 60.0
-    return (d,m,s,hemi)
+    return (d, m, s, hemi)
 
 
 def pointToWGS84(point):
     p = QgsProject.instance()
-    (proj4string,ok) = p.readEntry("SpatialRefSys","ProjectCRSProj4String")
+    (proj4string, ok) = p.readEntry("SpatialRefSys", "ProjectCRSProj4String")
     if not ok:
         return point
-    t=QgsCoordinateReferenceSystem(4326)
-    f=QgsCoordinateReferenceSystem()
+    t = QgsCoordinateReferenceSystem(4326)
+    f = QgsCoordinateReferenceSystem()
     f.createFromProj4(proj4string)
-    transformer = QgsCoordinateTransform(f,t)
+    transformer = QgsCoordinateTransform(f, t)
     pt = transformer.transform(point)
     return pt

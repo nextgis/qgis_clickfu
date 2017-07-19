@@ -26,7 +26,7 @@
 #
 #******************************************************************************
 
-def classFactory(iface):
-  from main import MainPlugin
-  return MainPlugin(iface)
 
+def classFactory(iface):
+    from main import MainPlugin
+    return MainPlugin(iface)
