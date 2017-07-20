@@ -1,16 +1,19 @@
 [general]
 name=Click-Fu
-about=Originally written by Barry Rowlingson, ported to QGIS 2.0 by Maxim Dubinin (NextGIS).
-description=Send click coordinates to various geoservices.
+about=# Send click coordinates to various geoservices
+description=Send click coordinates to various geoservices to open their maps in browser at needed locationSend click coordinates to various geoservices.
 category=Vector
-version=0.4.8
+version=0.5
 qgisMinimumVersion=2.0
-changelog= 0.4.8:
+changelog= 0.5
+        * move to better ui system
+        * add Rosreestr
+        0.4.8:
         * fix all services
         * remove geonames
 
 author=NextGIS
-authorName=Barry Rowlingson
+authorName=NextGIS
 email=info@nextgis.com
 
 tags=click

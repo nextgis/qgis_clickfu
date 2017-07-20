@@ -46,6 +46,7 @@ from googlemaps import googleMap
 from osm import osmViewMap,osmEditMap,osmEditMapJOSM 
 from flickrMap import flickrPics
 from geoHack import geoHack
+from rosreestr import Rosreestr
 
 import doAbout
 
@@ -65,11 +66,12 @@ class MainPlugin(object):
     self.osmEditMapJOSM = osmEditMapJOSM(self.iface)
     self.flickr = flickrPics(self.iface)
     self.geoHack = geoHack(self.iface)
+    self.Rosreestr = Rosreestr(self.iface)
     
     self.about = QAction("About Click-fu",self.iface.mainWindow())
     QObject.connect(self.about,SIGNAL("triggered()"),self.clickAbout)
 
-    self.menu.addActions([self.googleMaps, self.osmViewMap, self.osmEditMap, self.osmEditMapJOSM, self.flickr, self.geoHack])
+    self.menu.addActions([self.googleMaps, self.osmViewMap, self.osmEditMap, self.osmEditMapJOSM, self.flickr, self.geoHack, self.Rosreestr])
     self.menu.addSeparator()
     self.menu.addAction(self.about)
     
@@ -77,7 +79,7 @@ class MainPlugin(object):
     menuBar.addMenu(self.menu)
 
   def clickAbout(self):
-    d = doAbout.Dialog()
+    d = doAbout.AboutDialog()
     d.exec_()
 
   def unload(self):

@@ -24,16 +24,20 @@
 # MA 02110-1335 USA.
 #
 #******************************************************************************
+import os
 
+from PyQt4 import uic
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from qgis.core import *
-from ui_about import Ui_Dialog
 
-class Dialog(QDialog, Ui_Dialog):
-	def __init__(self):
-		QDialog.__init__(self)
+FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__), 'ui/about.ui'))
+
+class AboutDialog(QDialog, FORM_CLASS):
+	def __init__(self, parent=None):
+		super(AboutDialog, self).__init__(parent)
+		#QDialog.__init__(self)
 		# Set up the user interface from Designer.
 		self.setupUi(self)
 		

@@ -3,11 +3,12 @@
 #******************************************************************************
 #
 # Click-fu
-# ---------------------------------------------------------
-# Send click coordinates to various geoservices.
+# -----------------------------------------------------------------------------
+# Send click coordinates to various geoservices to open their maps in browser
+# at needed location
 #
 # Copyright (C) 2008-2010 Barry Rownligson (barry.rowlingson@gmail.com)
-#               2014 NextGIS (info@nextgis.org)
+#               2014-2017 NextGIS (info@nextgis.com)
 #
 # This source is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free
