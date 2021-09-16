@@ -1,5 +1,5 @@
 
-from clickFuUtils import cfAction
+from .clickFuUtils import cfAction
 
 class flickrPics(cfAction):
     def __init__(self,iface):

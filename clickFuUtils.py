@@ -26,11 +26,14 @@
 #
 #******************************************************************************
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from qgis.PyQt.QtCore import QObject, QUrl
+from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtWidgets import QAction
 
-from qgis.core import *
-from qgis.gui import *
+from qgis.core import QgsProject
+from qgis.gui import QgsMapTool
+
+from .compat import QgsCoordinateReferenceSystem, QgsCoordinateTransform, getProjectCRSProjString
 
 class cfAction(QAction):
     def __init__(self,name,iface):
@@ -39,7 +42,7 @@ class cfAction(QAction):
         self.canvas=iface.mapCanvas()
         self.setWhatsThis(self.desc())
         self.setToolTip(self.desc())
-        QObject.connect(self,SIGNAL("triggered()"),self.doit)
+        self.triggered.connect(self.doit)
         return None
 
     def doit(self):
@@ -55,7 +58,7 @@ class cfTool(QgsMapTool):
         self.urlCreator=urlCreator
         return None
     def canvasReleaseEvent(self,e):
-        point = self.canvas.getCoordinateTransform().toMapPoint(e.pos().x(),e.pos().y())
+        point = self.canvas.getCoordinateTransform().toMapCoordinates(e.pos().x(),e.pos().y())
         pt85 = pointToWGS84(point)
         url = self.urlCreator(pt85.y(),pt85.x())
         #print "event pos: ",e.pos().x(),",",e.pos().y()
@@ -86,13 +89,14 @@ def convertDMS(dms,hemis):
 
 
 def pointToWGS84(point):
-    p = QgsProject.instance()
-    (proj4string,ok) = p.readEntry("SpatialRefSys","ProjectCRSProj4String")
-    if not ok:
+    projstring = getProjectCRSProjString()
+    if not projstring:
         return point
-    t=QgsCoordinateReferenceSystem(4326)
+
+    t=QgsCoordinateReferenceSystem.fromEpsgId(4326)
     f=QgsCoordinateReferenceSystem()
-    f.createFromProj4(proj4string)
+    f.createFromProj(projstring)
+
     transformer = QgsCoordinateTransform(f,t)
     pt = transformer.transform(point)
     return pt

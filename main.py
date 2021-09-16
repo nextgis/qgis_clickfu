@@ -31,24 +31,19 @@ import sys
 import tempfile
 import gettext
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.core import *
-from qgis.gui import *
+from qgis.PyQt.QtCore import QObject
+from qgis.PyQt.QtWidgets import QAction, QMenu
 
 # import resources
 
-from googlemaps import googleMap
+from .googlemaps import googleMap
 #from geonames import gnExtended
-from osm import osmViewMap,osmEditMap,osmEditMapJOSM 
-from flickrMap import flickrPics
-from geoHack import geoHack
-from rosreestr import Rosreestr
+from .osm import osmViewMap,osmEditMap,osmEditMapJOSM 
+from .flickrMap import flickrPics
+from .geoHack import geoHack
+from .rosreestr import Rosreestr
 
-import doAbout
+from . import doAbout
 
 class MainPlugin(object):
   def __init__(self, iface):
@@ -69,7 +64,7 @@ class MainPlugin(object):
     self.Rosreestr = Rosreestr(self.iface)
     
     self.about = QAction("About Click-fu",self.iface.mainWindow())
-    QObject.connect(self.about,SIGNAL("triggered()"),self.clickAbout)
+    self.about.triggered.connect(self.clickAbout)
 
     self.menu.addActions([self.googleMaps, self.osmViewMap, self.osmEditMap, self.osmEditMapJOSM, self.flickr, self.geoHack, self.Rosreestr])
     self.menu.addSeparator()

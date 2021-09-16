@@ -1,5 +1,5 @@
 
-from clickFuUtils import cfAction
+from .clickFuUtils import cfAction
 
 class osmViewMap(cfAction):
     def __init__(self,iface):

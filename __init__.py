@@ -28,6 +28,6 @@
 #******************************************************************************
 
 def classFactory(iface):
-  from main import MainPlugin
+  from .main import MainPlugin
   return MainPlugin(iface)
 

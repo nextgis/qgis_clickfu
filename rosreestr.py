@@ -1,7 +1,7 @@
 #contrib by ANAT1
 
-from clickFuUtils import cfAction
-from qgis.core import QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsPoint
+from .clickFuUtils import cfAction
+from .compat import QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsPointXY
 
 
 class Rosreestr(cfAction):
@@ -15,10 +15,10 @@ class Rosreestr(cfAction):
         return "Goto Location on Rosreestr PKK"
 
     def createURL(self, lat, long):
-        point = QgsPoint(long, lat)
+        point = QgsPointXY(long, lat)
         pt3857 = QgsCoordinateTransform(
-            QgsCoordinateReferenceSystem(4326),
-            QgsCoordinateReferenceSystem(3857)
+            QgsCoordinateReferenceSystem.fromEpsgId(4326),
+            QgsCoordinateReferenceSystem.fromEpsgId(3857)
         ).transform(point)
         
         url = "http://pkk5.rosreestr.ru/#x=%.9f&y=%.9f&z=19&text=%s %s&type=1&app=search&opened=1" % (

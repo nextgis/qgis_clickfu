@@ -1,5 +1,5 @@
 
-from clickFuUtils import cfAction,convertLat,convertLon
+from .clickFuUtils import cfAction,convertLat,convertLon
 
 class geoHack(cfAction):
     def __init__(self,iface):

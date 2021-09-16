@@ -3,9 +3,13 @@ name=Click-Fu
 about=# Send click coordinates to various geoservices
 description=Send click coordinates to various geoservices to open their maps in browser at needed locationSend click coordinates to various geoservices.
 category=Vector
-version=0.5
+version=0.6
 qgisMinimumVersion=2.0
-changelog= 0.5
+qgisMaximumVersion=3.99
+changelog=
+    0.6:
+        * QGIS3 support added
+    0.5:
         * move to better ui system
         * add Rosreestr
         0.4.8:
