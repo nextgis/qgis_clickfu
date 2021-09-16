@@ -49,6 +49,12 @@ class QgsCoordinateTransform(core.QgsCoordinateTransform):
         self.setSourceCrs(src_crs)
         self.setDestinationCrs(dst_crs)
 
+    def setDestinationCrs(self, dst_crs):
+        if QGis.QGIS_VERSION_INT >= 30000:
+            super(QgsCoordinateTransform, self).setDestinationCrs(dst_crs)
+        else:
+            self.setDestCRS(dst_crs)
+
 class QgsCoordinateReferenceSystem(core.QgsCoordinateReferenceSystem):
     @staticmethod
     def fromEpsgId(id):
@@ -61,7 +67,7 @@ class QgsCoordinateReferenceSystem(core.QgsCoordinateReferenceSystem):
         if QGis.QGIS_VERSION_INT >= 30000:
             return super().createFromProj(projString)
         else:
-            return super().createFromProj4(projString)
+            return super(QgsCoordinateReferenceSystem, self).createFromProj4(projString)
 
 def getProjectCRSProjString():
     if QGis.QGIS_VERSION_INT >= 30000:
