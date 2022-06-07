@@ -1,4 +1,4 @@
-#contrib by ANAT1
+#contrib by ANAT01
 
 from .clickFuUtils import cfAction
 from .compat import QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsPointXY
@@ -16,13 +16,9 @@ class Rosreestr(cfAction):
 
     def createURL(self, lat, long):
         point = QgsPointXY(long, lat)
-        pt3857 = QgsCoordinateTransform(
-            QgsCoordinateReferenceSystem.fromEpsgId(4326),
-            QgsCoordinateReferenceSystem.fromEpsgId(3857)
-        ).transform(point)
+        pt4326 = point
         
-        url = "http://pkk5.rosreestr.ru/#x=%.9f&y=%.9f&z=19&text=%s %s&type=1&app=search&opened=1" % (
-            pt3857.x(), pt3857.y(), str("{0:.6f}".format(lat)).replace('.', ','),
-            str("{0:.6f}".format(long)).replace('.', ',')
-        )
+        # https://pkk.rosreestr.ru/#/search/{Y},{X}/{ZOOM}/{PARAMETERS}"
+        url = f"https://pkk.rosreestr.ru/#/search/{pt4326.y()},{pt4326.x()}/20/@2yxq8wpxh"
+        
         return url
