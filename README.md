@@ -3,10 +3,10 @@ Click-fu
 
 QGIS plugin to quickly send click coordinates to various geoservices
 
-Originally written by Barry Rowlingson (barry.rowlingson@gmail.com), ported to QGIS 2/3 and updated by NextGIS
+Originally written by Barry Rowlingson, ported to QGIS 2/3 and updated by NextGIS
 
 License
--------------
+-------
 This program is licensed under GNU GPL v2 or any later version
 
 Commercial support
