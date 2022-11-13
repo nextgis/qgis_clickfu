@@ -1,6 +1,6 @@
 [general]
 name=Click-Fu
-about=# Send click coordinates to various geoservices
+about=Send click coordinates to various geoservices
 description=Send click coordinates to various geoservices to open their maps in browser at needed locationSend click coordinates to various geoservices.
 category=Vector
 version=0.6
