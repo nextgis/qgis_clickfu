@@ -1,14 +1,14 @@
 [general]
 name=Click-Fu
-about=Send click coordinates to various geoservices
-description=Send click coordinates to various geoservices to open their maps in browser at needed location. 
-
-Create interactive web maps and manage spatial data in your Web GIS. Add layers, maps, WMS/WFS/TMS services. Developed by NextGIS. Any feedback is welcome at https://nextgis.com/contact
+about=Send click coordinates to various geoservices to open their maps in a browser at needed location. Developed by NextGIS. Any feedback is welcome at https://nextgis.com/contact
+description=Send click coordinates to various geoservices
 category=Vector
 version=0.6
 qgisMinimumVersion=2.0
 qgisMaximumVersion=3.99
 changelog=
+    0.7:
+        * Move menu to Web
     0.6:
         * QGIS3 support added
     0.5:

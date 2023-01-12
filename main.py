@@ -51,7 +51,8 @@ class MainPlugin(object):
     self.iface = iface
 
   def initGui(self):
-    # Create action
+    
+    # Create menu
     self.menu=QMenu("Click-fu")
 
     self.googleMaps = googleMap(self.iface)
@@ -63,22 +64,30 @@ class MainPlugin(object):
     self.geoHack = geoHack(self.iface)
     self.Rosreestr = Rosreestr(self.iface)
     
+    # Create action
     self.about = QAction("About Click-fu",self.iface.mainWindow())
     self.about.triggered.connect(self.clickAbout)
 
     self.menu.addActions([self.googleMaps, self.osmViewMap, self.osmEditMap, self.osmEditMapJOSM, self.flickr, self.geoHack, self.Rosreestr])
     self.menu.addSeparator()
     self.menu.addAction(self.about)
+
+    _temp_act = QAction('temp', self.iface.mainWindow())
+    self.iface.addPluginToWebMenu("_tmp", _temp_act)
+    self.iface.webMenu().addMenu(self.menu)
+    self.iface.removePluginWebMenu("_tmp", _temp_act)
     
-    menuBar = self.iface.mainWindow().menuBar()
-    menuBar.addMenu(self.menu)
+    self.iface.webMenu().addMenu(self.menu)
 
   def clickAbout(self):
     d = doAbout.AboutDialog()
     d.exec_()
 
   def unload(self):
-    # Remove the plugin
-    pass
+    # remove menu
+    self.menu.deleteLater()
+    
+    # clean vars
+    self.menu = None
 
 

@@ -19,6 +19,6 @@ class Rosreestr(cfAction):
         pt4326 = point
         
         # https://pkk.rosreestr.ru/#/search/{Y},{X}/{ZOOM}/{PARAMETERS}"
-        url = f"https://pkk.rosreestr.ru/#/search/{pt4326.y()},{pt4326.x()}/20/@2yxq8wpxh"
+        url = f"https://pkk.rosreestr.ru/#/search/{pt4326.y()},{pt4326.x()}/10"
         
         return url
