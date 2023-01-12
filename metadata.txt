@@ -1,10 +1,10 @@
 [general]
 name=Click-Fu
-about=Send click coordinates to various geoservices to open their maps in a browser at needed location. Developed by NextGIS. Any feedback is welcome at https://nextgis.com/contact
 description=Send click coordinates to various geoservices
+about=Send click coordinates to various geoservices to open their maps in a browser at needed location. Developed by NextGIS. Any feedback is welcome at https://nextgis.com/contact
 category=Vector
-version=0.6
-qgisMinimumVersion=2.0
+version=0.7
+qgisMinimumVersion=3.4
 qgisMaximumVersion=3.99
 changelog=
     0.7:
@@ -24,9 +24,9 @@ email=info@nextgis.com
 
 tags=click
 
-homepage=https://github.com/nextgis/clickfu
-tracker=https://github.com/nextgis/clickfu/issues
-repository=https://github.com/nextgis/clickfu
+homepage=https://nextgis.com
+tracker=https://github.com/nextgis/qgis_clickfu/issues
+repository=https://github.com/nextgis/qgis_clickfu
 
 experimental=False
 deprecated=False
