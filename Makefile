@@ -8,8 +8,9 @@ clean:
 	rm -f *.zip
 
 package:
-	cd .. && rm -f *.zip && zip -r clickfu.zip clickfu -x \*.pyc \*.ts \*.qrc \*.pro \*~ \*.git\* \*.svn\* \*Makefile*
-	mv ../clickfu.zip .
+	cd .. && rm -f *.zip && zip -r clickfu.zip clickfu -x \*.pyc \*.ts \*.qrc \*.pro \*~ \*.git\* \*.svn\* \*.idea\* \*Makefile*
+	rm  *.qm
+
 
 upload:
 	plugin_uploader_NG.py clickfu.zip
