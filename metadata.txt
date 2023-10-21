@@ -9,6 +9,8 @@ version=0.7
 qgisMinimumVersion=3.4
 qgisMaximumVersion=3.99
 changelog=
+    0.8:
+        * Added about
     0.7:
         * Move menu to Web
     0.6:
