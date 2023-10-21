@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#******************************************************************************
+# ******************************************************************************
 #
 # Click-fu
 # ---------------------------------------------------------
@@ -24,70 +24,101 @@
 # to the Free Software Foundation, 51 Franklin Street, Suite 500 Boston,
 # MA 02110-1335 USA.
 #
-#******************************************************************************
+# ******************************************************************************
 
 import os
-import sys
-import tempfile
-import gettext
+from os import path
+from qgis.core import QgsApplication
 
-from qgis.PyQt.QtCore import QObject
-from qgis.PyQt.QtWidgets import QAction, QMenu
+from qgis.PyQt.QtCore import QTranslator, QCoreApplication
+from qgis.PyQt.QtWidgets import QAction, QMenu, QApplication
 
 # import resources
 
 from .googlemaps import googleMap
-#from geonames import gnExtended
-from .osm import osmViewMap,osmEditMap,osmEditMapJOSM 
+# from geonames import gnExtended
+from .osm import osmViewMap, osmEditMap, osmEditMapJOSM
 from .flickrMap import flickrPics
 from .geoHack import geoHack
 from .rosreestr import Rosreestr
 
-from . import doAbout
+from .about_dialog import AboutDialog
+
 
 class MainPlugin(object):
-  def __init__(self, iface):
-    # Save a reference to the QGIS iface
-    self.iface = iface
+    def __init__(self, iface):
+        # Save a reference to the QGIS iface
+        self.iface = iface
+        self.plugin_dir = path.dirname(__file__)
+        self._translator = None
+        self.__init_translator()
 
-  def initGui(self):
-    
-    # Create menu
-    self.menu=QMenu("Click-fu")
+    def initGui(self):
+        # Create menu
+        self.menu = QMenu("Click-fu")
 
-    self.googleMaps = googleMap(self.iface)
-    #self.gnExtended = gnExtended(self.iface)
-    self.osmViewMap = osmViewMap(self.iface)
-    self.osmEditMap = osmEditMap(self.iface)
-    self.osmEditMapJOSM = osmEditMapJOSM(self.iface)
-    self.flickr = flickrPics(self.iface)
-    self.geoHack = geoHack(self.iface)
-    self.Rosreestr = Rosreestr(self.iface)
-    
-    # Create action
-    self.about = QAction("About Click-fu",self.iface.mainWindow())
-    self.about.triggered.connect(self.clickAbout)
+        self.googleMaps = googleMap(self.iface)
+        # self.gnExtended = gnExtended(self.iface)
+        self.osmViewMap = osmViewMap(self.iface)
+        self.osmEditMap = osmEditMap(self.iface)
+        self.osmEditMapJOSM = osmEditMapJOSM(self.iface)
+        self.flickr = flickrPics(self.iface)
+        self.geoHack = geoHack(self.iface)
+        self.Rosreestr = Rosreestr(self.iface)
 
-    self.menu.addActions([self.googleMaps, self.osmViewMap, self.osmEditMap, self.osmEditMapJOSM, self.flickr, self.geoHack, self.Rosreestr])
-    self.menu.addSeparator()
-    self.menu.addAction(self.about)
+        # Create action
+        # self.about = QAction("About Click-fu",self.iface.mainWindow())
+        self.actionAbout = QAction(
+            QApplication.translate("Click-Fu", "About"),
+            self.iface.mainWindow()
+        )
+        self.actionAbout.triggered.connect(self.about)
 
-    _temp_act = QAction('temp', self.iface.mainWindow())
-    self.iface.addPluginToWebMenu("_tmp", _temp_act)
-    self.iface.webMenu().addMenu(self.menu)
-    self.iface.removePluginWebMenu("_tmp", _temp_act)
-    
-    self.iface.webMenu().addMenu(self.menu)
+        self.menu.addActions(
+            [
+                self.googleMaps,
+                self.osmViewMap,
+                self.osmEditMap,
+                self.osmEditMapJOSM,
+                self.flickr,
+                self.geoHack,
+                self.Rosreestr
+            ]
+        )
+        self.menu.addSeparator()
+        self.menu.addAction(self.actionAbout)
 
-  def clickAbout(self):
-    d = doAbout.AboutDialog()
-    d.exec_()
+        _temp_act = QAction('temp', self.iface.mainWindow())
+        self.iface.addPluginToWebMenu("_tmp", _temp_act)
+        self.iface.webMenu().addMenu(self.menu)
+        self.iface.removePluginWebMenu("_tmp", _temp_act)
 
-  def unload(self):
-    # remove menu
-    self.menu.deleteLater()
-    
-    # clean vars
-    self.menu = None
+        self.iface.webMenu().addMenu(self.menu)
 
+    def about(self):
+        dialog = AboutDialog(os.path.basename(self.plugin_dir))
+        dialog.exec_()
 
+    def unload(self):
+        # remove menu
+        self.menu.deleteLater()
+
+        # clean vars
+        self.menu = None
+
+    def __init_translator(self):
+        # initialize locale
+        locale = QgsApplication.instance().locale()
+
+        def add_translator(locale_path):
+            if not path.exists(locale_path):
+                return
+            translator = QTranslator()
+            translator.load(locale_path)
+            QCoreApplication.installTranslator(translator)
+            self._translator = translator  # Should be kept in memory
+
+        add_translator(path.join(
+            self.plugin_dir, 'i18n',
+            'clickfu_{}.qm'.format(locale)
+        ))
