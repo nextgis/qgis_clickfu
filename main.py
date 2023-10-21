@@ -29,11 +29,8 @@
 import os
 from os import path
 from qgis.core import QgsApplication
-import sys
-import tempfile
-import gettext
 
-from qgis.PyQt.QtCore import QObject, QTranslator, QCoreApplication
+from qgis.PyQt.QtCore import QTranslator, QCoreApplication
 from qgis.PyQt.QtWidgets import QAction, QMenu, QApplication
 
 # import resources
@@ -45,7 +42,7 @@ from .flickrMap import flickrPics
 from .geoHack import geoHack
 from .rosreestr import Rosreestr
 
-from . import about_dialog
+from .about_dialog import AboutDialog
 
 
 class MainPlugin(object):
@@ -78,8 +75,16 @@ class MainPlugin(object):
         self.actionAbout.triggered.connect(self.about)
 
         self.menu.addActions(
-            [self.googleMaps, self.osmViewMap, self.osmEditMap, self.osmEditMapJOSM, self.flickr, self.geoHack,
-             self.Rosreestr])
+            [
+                self.googleMaps,
+                self.osmViewMap,
+                self.osmEditMap,
+                self.osmEditMapJOSM,
+                self.flickr,
+                self.geoHack,
+                self.Rosreestr
+            ]
+        )
         self.menu.addSeparator()
         self.menu.addAction(self.actionAbout)
 
@@ -91,8 +96,8 @@ class MainPlugin(object):
         self.iface.webMenu().addMenu(self.menu)
 
     def about(self):
-        dlg = about_dialog.AboutDialog(os.path.basename(self.plugin_dir))
-        dlg.exec_()
+        dialog = AboutDialog(os.path.basename(self.plugin_dir))
+        dialog.exec_()
 
     def unload(self):
         # remove menu
@@ -117,5 +122,3 @@ class MainPlugin(object):
             self.plugin_dir, 'i18n',
             'clickfu_{}.qm'.format(locale)
         ))
-
-

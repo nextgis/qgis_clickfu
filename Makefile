@@ -9,7 +9,7 @@ clean:
 
 package:
 	cd .. && rm -f *.zip && zip -r clickfu.zip clickfu -x \*.pyc \*.ts \*.qrc \*.pro \*~ \*.git\* \*.svn\* \*.idea\* \*Makefile*
-	rm  *.qm
+	mv ../clickfu.zip .
 
 
 upload:
