@@ -28,7 +28,7 @@ class AboutDialog(QDialog, FORM_CLASS):
             self.windowTitle().format(plugin_name=replacemens["{plugin_name}"])
         )
         html = self.textBrowser.toHtml()
-        for key, value in replacemens.items():
+        for key, value in list(replacemens.items()):
             html = html.replace(key, value)
         self.textBrowser.setHtml(html)
 
