@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # ******************************************************************************
 #
 # Click-fu
@@ -39,19 +37,17 @@ from .compat import (
 
 
 class cfAction(QAction):
-    def __init__(self, name, iface):
+    def __init__(self, _name, iface):
         QAction.__init__(self, self.name(), iface.mainWindow())
         self.iface = iface
         self.canvas = iface.mapCanvas()
         self.setWhatsThis(self.desc())
         self.setToolTip(self.desc())
         self.triggered.connect(self.doit)
-        return
 
     def doit(self):
         self.tool = cfTool(self.iface, self.createURL)
         self.canvas.setMapTool(self.tool)
-        return
 
 
 class cfTool(QgsMapTool):
@@ -60,7 +56,6 @@ class cfTool(QgsMapTool):
         self.iface = iface
         self.canvas = iface.mapCanvas()
         self.urlCreator = urlCreator
-        return
 
     def canvasReleaseEvent(self, e):
         point = self.canvas.getCoordinateTransform().toMapCoordinates(
@@ -73,7 +68,6 @@ class cfTool(QgsMapTool):
         # print "point w84: ",pt85.x(),pt85.y()
 
         QDesktopServices.openUrl(QUrl(url))
-        return
 
 
 def convertLat(lat):

@@ -4,7 +4,6 @@ from .clickFuUtils import cfAction, convertLat, convertLon
 class geoHack(cfAction):
     def __init__(self, iface):
         cfAction.__init__(self, self.name(), iface)
-        return
 
     def name(self):
         return "GeoHack Map Sources"

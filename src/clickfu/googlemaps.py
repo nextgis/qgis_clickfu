@@ -4,7 +4,6 @@ from .clickFuUtils import cfAction
 class googleMap(cfAction):
     def __init__(self, iface):
         cfAction.__init__(self, self.name(), iface)
-        return
 
     def name(self):
         return "Google Maps"
@@ -13,5 +12,5 @@ class googleMap(cfAction):
         return "Goto Location on Google Maps"
 
     def createURL(self, lat, long):
-        url = "https://www.google.com/maps/@%s,%s,17z" % (lat, long)
+        url = f"https://www.google.com/maps/@{lat},{long},17z"
         return url

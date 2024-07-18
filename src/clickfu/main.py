@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # ******************************************************************************
 #
 # Click-fu
@@ -45,7 +43,7 @@ from .osm import osmEditMap, osmEditMapJOSM, osmViewMap
 from .rosreestr import Rosreestr
 
 
-class MainPlugin(object):
+class MainPlugin:
     def __init__(self, iface):
         # Save a reference to the QGIS iface
         self.iface = iface
@@ -119,5 +117,5 @@ class MainPlugin(object):
             self._translator = translator  # Should be kept in memory
 
         add_translator(
-            path.join(self.plugin_dir, "i18n", "clickfu_{}.qm".format(locale))
+            path.join(self.plugin_dir, "i18n", f"clickfu_{locale}.qm")
         )

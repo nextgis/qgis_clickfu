@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # ******************************************************************************
 #
 # OSMInfo
@@ -38,14 +37,14 @@ else:
 
 class QgsCoordinateTransform(core.QgsCoordinateTransform):
     def __init__(self, src_crs, dst_crs):
-        super(QgsCoordinateTransform, self).__init__()
+        super().__init__()
 
         self.setSourceCrs(src_crs)
         self.setDestinationCrs(dst_crs)
 
     def setDestinationCrs(self, dst_crs):
         if QGis.QGIS_VERSION_INT >= 30000:
-            super(QgsCoordinateTransform, self).setDestinationCrs(dst_crs)
+            super().setDestinationCrs(dst_crs)
         else:
             self.setDestCRS(dst_crs)
 
@@ -55,23 +54,18 @@ class QgsCoordinateReferenceSystem(core.QgsCoordinateReferenceSystem):
     def fromEpsgId(id):
         if QGis.QGIS_VERSION_INT >= 30000:
             return core.QgsCoordinateReferenceSystem.fromEpsgId(id)
-        else:
-            return core.QgsCoordinateReferenceSystem(id)
+        return core.QgsCoordinateReferenceSystem(id)
 
     def createFromProj(self, projString):
         if QGis.QGIS_VERSION_INT >= 30000:
             return super().createFromProj(projString)
-        else:
-            return super(QgsCoordinateReferenceSystem, self).createFromProj4(
-                projString
-            )
+        return super().createFromProj4(projString)
 
 
 def getProjectCRSProjString():
     if QGis.QGIS_VERSION_INT >= 30000:
         return core.QgsProject.instance().crs().toProj()
-    else:
-        (proj4string, ok) = core.QgsProject.instance().readEntry(
-            "SpatialRefSys", "ProjectCRSProj4String"
-        )
-        return proj4string
+    (proj4string, ok) = core.QgsProject.instance().readEntry(
+        "SpatialRefSys", "ProjectCRSProj4String"
+    )
+    return proj4string
