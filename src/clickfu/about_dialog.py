@@ -1,10 +1,10 @@
 import os
 from typing import Dict, Optional
 
-from qgis.PyQt.QtCore import QLocale
-from qgis.PyQt.QtWidgets import QWidget, QDialog
-from qgis.PyQt import uic
 from qgis.core import QgsSettings
+from qgis.PyQt import uic
+from qgis.PyQt.QtCore import QLocale
+from qgis.PyQt.QtWidgets import QDialog, QWidget
 from qgis.utils import pluginMetadata
 
 FORM_CLASS, _ = uic.loadUiType(
@@ -19,12 +19,14 @@ class AboutDialog(QDialog, FORM_CLASS):
         self.__package_name = package_name
 
         replacemens = self.__replacemens()
-        self.pluginName.setText(self.pluginName.text().replace(
-            "{plugin_name}", replacemens["{plugin_name}"])
+        self.pluginName.setText(
+            self.pluginName.text().replace(
+                "{plugin_name}", replacemens["{plugin_name}"]
+            )
         )
-        self.setWindowTitle(self.windowTitle().format(
-            plugin_name=replacemens["{plugin_name}"]
-        ))
+        self.setWindowTitle(
+            self.windowTitle().format(plugin_name=replacemens["{plugin_name}"])
+        )
         html = self.textBrowser.toHtml()
         for key, value in replacemens.items():
             html = html.replace(key, value)
@@ -47,14 +49,14 @@ class AboutDialog(QDialog, FORM_CLASS):
 
         def metadata_value(key: str) -> str:
             value = pluginMetadata(self.__package_name, f"{key}[{locale}]")
-            if value == '__error__':
+            if value == "__error__":
                 value = pluginMetadata(self.__package_name, key)
             return value
 
         about = metadata_value("about")
         about_stop_phrase = "Разработан компанией" if is_ru else "Developed by"
         if about.find(about_stop_phrase) > 0:
-            about = about[:about.find(about_stop_phrase)]
+            about = about[: about.find(about_stop_phrase)]
 
         return {
             "{plugin_name}": metadata_value("name"),
