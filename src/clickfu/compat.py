@@ -35,11 +35,6 @@ if hasattr(core, "QGis"):
 else:
     from qgis.core import Qgis as QGis
 
-if QGis.QGIS_VERSION_INT >= 30000:
-    pass
-else:
-    pass
-
 
 class QgsCoordinateTransform(core.QgsCoordinateTransform):
     def __init__(self, src_crs, dst_crs):

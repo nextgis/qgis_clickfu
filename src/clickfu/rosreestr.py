@@ -1,9 +1,8 @@
 # contrib by ANAT01
 
+from qgis.core import QgsPointXY
+
 from .clickFuUtils import cfAction
-from .compat import (
-    QgsPointXY,
-)
 
 
 class Rosreestr(cfAction):
