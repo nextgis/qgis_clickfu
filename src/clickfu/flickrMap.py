@@ -3,7 +3,7 @@ from .clickFuUtils import cfAction
 
 class flickrPics(cfAction):
     def __init__(self, iface):
-        cfAction.__init__(self, self.name(), iface)
+        super().__init__(self.name(), iface)
 
     def name(self):
         return "Flickr Maps"

@@ -51,10 +51,10 @@ class QgsCoordinateTransform(core.QgsCoordinateTransform):
 
 class QgsCoordinateReferenceSystem(core.QgsCoordinateReferenceSystem):
     @staticmethod
-    def fromEpsgId(id):
+    def fromEpsgId(identifier):
         if QGis.QGIS_VERSION_INT >= 30000:
-            return core.QgsCoordinateReferenceSystem.fromEpsgId(id)
-        return core.QgsCoordinateReferenceSystem(id)
+            return core.QgsCoordinateReferenceSystem.fromEpsgId(identifier)
+        return core.QgsCoordinateReferenceSystem(identifier)
 
     def createFromProj(self, projString):
         if QGis.QGIS_VERSION_INT >= 30000:
