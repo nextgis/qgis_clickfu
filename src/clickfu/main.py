@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # ******************************************************************************
 #
 # Click-fu
@@ -28,24 +26,24 @@
 
 import os
 from os import path
+
 from qgis.core import QgsApplication
-
-from qgis.PyQt.QtCore import QTranslator, QCoreApplication
-from qgis.PyQt.QtWidgets import QAction, QMenu, QApplication
-
-# import resources
-
-from .googlemaps import googleMap
-# from geonames import gnExtended
-from .osm import osmViewMap, osmEditMap, osmEditMapJOSM
-from .flickrMap import flickrPics
-from .geoHack import geoHack
-from .rosreestr import Rosreestr
+from qgis.PyQt.QtCore import QCoreApplication, QTranslator
+from qgis.PyQt.QtWidgets import QAction, QApplication, QMenu
 
 from .about_dialog import AboutDialog
+from .flickrMap import flickrPics
+from .geoHack import geoHack
+
+# import resources
+from .googlemaps import googleMap
+
+# from geonames import gnExtended
+from .osm import osmEditMap, osmEditMapJOSM, osmViewMap
+from .rosreestr import Rosreestr
 
 
-class MainPlugin(object):
+class MainPlugin:
     def __init__(self, iface):
         # Save a reference to the QGIS iface
         self.iface = iface
@@ -70,7 +68,7 @@ class MainPlugin(object):
         # self.about = QAction("About Click-fu",self.iface.mainWindow())
         self.actionAbout = QAction(
             QApplication.translate("Click-Fu", "About"),
-            self.iface.mainWindow()
+            self.iface.mainWindow(),
         )
         self.actionAbout.triggered.connect(self.about)
 
@@ -82,13 +80,13 @@ class MainPlugin(object):
                 self.osmEditMapJOSM,
                 self.flickr,
                 self.geoHack,
-                self.Rosreestr
+                self.Rosreestr,
             ]
         )
         self.menu.addSeparator()
         self.menu.addAction(self.actionAbout)
 
-        _temp_act = QAction('temp', self.iface.mainWindow())
+        _temp_act = QAction("temp", self.iface.mainWindow())
         self.iface.addPluginToWebMenu("_tmp", _temp_act)
         self.iface.webMenu().addMenu(self.menu)
         self.iface.removePluginWebMenu("_tmp", _temp_act)
@@ -118,7 +116,6 @@ class MainPlugin(object):
             QCoreApplication.installTranslator(translator)
             self._translator = translator  # Should be kept in memory
 
-        add_translator(path.join(
-            self.plugin_dir, 'i18n',
-            'clickfu_{}.qm'.format(locale)
-        ))
+        add_translator(
+            path.join(self.plugin_dir, "i18n", f"clickfu_{locale}.qm")
+        )

@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
-#******************************************************************************
+# ******************************************************************************
 #
 # OSMInfo
 # ---------------------------------------------------------
-# This plugin takes coordinates of a mouse click and gets information about all 
+# This plugin takes coordinates of a mouse click and gets information about all
 # objects from this point from OSM using Overpass API.
 #
 # Author:   Denis Ilyin, denis.ilyin@nextgis.com
@@ -25,10 +24,8 @@
 # to the Free Software Foundation, 51 Franklin Street, Suite 500 Boston,
 # MA 02110-1335 USA.
 #
-#******************************************************************************
+# ******************************************************************************
 
-import os
-import sys
 
 from qgis import core
 
@@ -37,41 +34,38 @@ if hasattr(core, "QGis"):
 else:
     from qgis.core import Qgis as QGis
 
-if QGis.QGIS_VERSION_INT >= 30000:
-    from qgis.core import QgsPointXY
-else:
-    from qgis.core import QgsPoint as QgsPointXY
 
 class QgsCoordinateTransform(core.QgsCoordinateTransform):
     def __init__(self, src_crs, dst_crs):
-        super(QgsCoordinateTransform, self).__init__()
-        
+        super().__init__()
+
         self.setSourceCrs(src_crs)
         self.setDestinationCrs(dst_crs)
 
     def setDestinationCrs(self, dst_crs):
         if QGis.QGIS_VERSION_INT >= 30000:
-            super(QgsCoordinateTransform, self).setDestinationCrs(dst_crs)
+            super().setDestinationCrs(dst_crs)
         else:
             self.setDestCRS(dst_crs)
 
+
 class QgsCoordinateReferenceSystem(core.QgsCoordinateReferenceSystem):
     @staticmethod
-    def fromEpsgId(id):
+    def fromEpsgId(identifier):
         if QGis.QGIS_VERSION_INT >= 30000:
-            return core.QgsCoordinateReferenceSystem.fromEpsgId(id)
-        else:
-            return core.QgsCoordinateReferenceSystem(id)
+            return core.QgsCoordinateReferenceSystem.fromEpsgId(identifier)
+        return core.QgsCoordinateReferenceSystem(identifier)
 
     def createFromProj(self, projString):
         if QGis.QGIS_VERSION_INT >= 30000:
             return super().createFromProj(projString)
-        else:
-            return super(QgsCoordinateReferenceSystem, self).createFromProj4(projString)
+        return super().createFromProj4(projString)
+
 
 def getProjectCRSProjString():
     if QGis.QGIS_VERSION_INT >= 30000:
         return core.QgsProject.instance().crs().toProj()
-    else:
-        (proj4string,ok) = core.QgsProject.instance().readEntry("SpatialRefSys","ProjectCRSProj4String")
-        return proj4string
+    (proj4string, ok) = core.QgsProject.instance().readEntry(
+        "SpatialRefSys", "ProjectCRSProj4String"
+    )
+    return proj4string

@@ -1,0 +1,38 @@
+[general]
+name=Click-Fu
+description=Send click coordinates to various geoservices
+description[ru]=Отправляйте координаты кликов в различные геосервисы
+about=Send click coordinates to various geoservices to open their maps in a browser at needed location. Developed by NextGIS. Any feedback is welcome at https://nextgis.com/contact
+about[ru]=Отправляйте координаты кликов различным геосервисам, чтобы открыть их карты в браузере в нужном месте. Разработано NextGIS. Любые отзывы приветствуются на https://nextgis.com/contact
+category=Vector
+version=0.7
+qgisMinimumVersion=3.4
+qgisMaximumVersion=3.99
+changelog=
+    0.8:
+        * Added about
+    0.7:
+        * Move menu to Web
+    0.6:
+        * QGIS3 support added
+    0.5:
+        * move to better ui system
+        * add Rosreestr
+    0.4.8:
+        * fix all services
+        * remove geonames
+
+author=NextGIS
+authorName=NextGIS
+email=info@nextgis.com
+
+tags=click
+
+homepage=https://nextgis.com
+tracker=https://github.com/nextgis/qgis_clickfu/issues
+repository=https://github.com/nextgis/qgis_clickfu
+video=https://youtu.be/H_mDkoCsQ-Y
+video[ru]=https://youtu.be/CAa0QHQPS_4
+
+experimental=False
+deprecated=False
