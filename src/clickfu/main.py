@@ -95,7 +95,7 @@ class MainPlugin:
 
     def about(self):
         dialog = AboutDialog(os.path.basename(self.plugin_dir))
-        dialog.exec_()
+        dialog.exec()
 
     def unload(self):
         # remove menu
