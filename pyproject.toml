@@ -6,7 +6,7 @@ license = { file = "LICENSE" }
 
 
 [tool.qgspb.forms]
-ui-files = ["src/clickfu/*.ui"]
+ui-files = ["src/clickfu/ui/*.ui"]
 compile = false
 
 [tool.qgspb.translations]
