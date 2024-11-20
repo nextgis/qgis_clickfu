@@ -93,6 +93,14 @@ class MainPlugin:
 
         self.iface.webMenu().addMenu(self.menu)
 
+        self.__show_help_action = QAction(
+            "Click-Fu",
+        )
+        self.__show_help_action.triggered.connect(self.about)
+        plugin_help_menu = self.iface.pluginHelpMenu()
+        assert plugin_help_menu is not None
+        plugin_help_menu.addAction(self.__show_help_action)
+
     def about(self):
         dialog = AboutDialog(os.path.basename(self.plugin_dir))
         dialog.exec()
