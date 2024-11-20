@@ -1,9 +1,11 @@
 [project]
 name = "clickfu"
-version = "0.7"
+version = "0.8.0"
 readme = "README.md"
 license = { file = "LICENSE" }
 
+[tool.qgspb.package-data]
+"clickfu.icons" = ["nextgis_logo.svg"]
 
 [tool.qgspb.forms]
 ui-files = ["src/clickfu/ui/*.ui"]

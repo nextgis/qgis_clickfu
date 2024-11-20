@@ -5,22 +5,9 @@ description[ru]=Отправляйте координаты кликов в ра
 about=Send click coordinates to various geoservices to open their maps in a browser at needed location. Developed by NextGIS. Any feedback is welcome at https://nextgis.com/contact
 about[ru]=Отправляйте координаты кликов различным геосервисам, чтобы открыть их карты в браузере в нужном месте. Разработано NextGIS. Любые отзывы приветствуются на https://nextgis.com/contact
 category=Vector
-version=0.7
-qgisMinimumVersion=3.4
+version=0.8.0
+qgisMinimumVersion=3.22
 qgisMaximumVersion=3.99
-changelog=
-    0.8:
-        * Added about
-    0.7:
-        * Move menu to Web
-    0.6:
-        * QGIS3 support added
-    0.5:
-        * move to better ui system
-        * add Rosreestr
-    0.4.8:
-        * fix all services
-        * remove geonames
 
 author=NextGIS
 authorName=NextGIS
@@ -36,3 +23,18 @@ video[ru]=https://youtu.be/CAa0QHQPS_4
 
 experimental=False
 deprecated=False
+
+changelog=
+    0.8.0:
+        * Updated the "About plugin" dialog
+        * Added plugin item to help menu
+    0.7.0:
+        * Move menu to Web
+    0.6.0:
+        * QGIS3 support added
+    0.5.0:
+        * move to better ui system
+        * add Rosreestr
+    0.4.8:
+        * fix all services
+        * remove geonames
